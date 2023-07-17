@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<!--
+    计算属性：
+        1.定义：要用的属性不存在，要通过已有的属性计算出来
+        2.原理：底层借助了Object。defineproperty方法提供的getter和setterr
+        3.get函数什么时候执行？
+            1）初次读取的时候执行一次
+            2）当依赖的数据发生改变的时候会再次调用
+        4.优势：与methods实现相比，内部的缓存机制（复用），效率更高，调式方方便
+        5.备注：
+            1）计算属性最终会出现在vm上，直接读取就可以使用
+            2）如果计算属性需要修改，那么必须写set函数去响应修改
+-->
+<body>
+    <div id="root">
+        姓:<input type="text" v-model="firstName"><br/>
+        名:<input type="text" v-model="lastName"><br/>
+        展示：<span>{{fullName}}</span>
+    </div>
+    <script type="text/javascript">
+        const vm=new Vue({
+            el:"#root",
+            data(){
+                return{
+                    firstName:'陶',
+                    lastName:'华宇'
+
+                }
+            },computed:{ //计算属性
+                fullName:{
+                    //get有什么用？当有人读取fullName时，get就会被调用，且返回值就是fullName的值
+                    //get什么时候调用？1.初次读取fullName的时候哦，2.所依赖的数据发生改变的时候
+                    get(){
+                       return this.firstName+"-"+this.lastName;
+                    },
+                    set(value){
+                        const arry=value.split('-');
+                        this.firstName=arry[0];
+                        this.lastName=arry[1];
+                    } 
+                }
+            }
+        })
+    </script>
+</body>
+</html>

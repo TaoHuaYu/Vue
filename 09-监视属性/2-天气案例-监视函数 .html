@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<!--
+    监视属性watch：
+        1.当坚实的属性变化时，回调函数自动执行，进行相关操作
+        2.监视的属性必须是存在的，才能进行监视
+        3.监视的两种写法：
+            1）new Vue时传入watch配置
+            2）通过vm.$watch监视
+-->
+<body>
+    <div id="root">
+        <span>今天天气{{weather}}</span><br/>
+        <button type="button" @click="change()">切换</button>
+    </div>
+    <script type="text/javascript">
+        const vm=new Vue({
+            el:"#root",
+            data(){
+                return{
+                   isHot:true
+                }
+            },computed:{
+                weather(){
+                    return this.isHot ? '炎热':'凉爽'
+                }
+
+            },methods:{
+                change(){
+                    const beforeWeather=this.isHot
+                    this.isHot=!beforeWeather;
+                }
+            }
+            // ,watch:{
+            //     weather:{
+            //         immediate:true, //初始化时让handler调用一下
+            //         handler(newValue,oldValue){
+            //             console.log("现在天气："+newValue,"之前天气："+oldValue)
+            //         }
+            //     }
+            // }
+        })
+        vm.$watch("weather",{
+            handler(newValue,oldValue){
+                console.log("现在天气："+newValue,"之前天气："+oldValue)
+            }
+        })
+    </script>
+</body>
+</html>

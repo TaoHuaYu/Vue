@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<!--
+    深度学习：
+        1.Vue中的watch默认不检测对象中的内部值的改变
+        2.配置deep：true可以监视对象内部值的改变
+    备注：
+        1.Vue自身可以检测对象内部值的改变，但Vue提供的watch默认不可以
+        2.使用watch时根据数据的具体结构，决定是否使用深度监视
+
+-->
+<body>
+    <div id="root">
+        <span>今天天气{{weather}}</span><br/>
+        <button type="button" @click="change()">切换</button><br/>
+        <span>{{number.a}}</span><br/>
+        <button type="button" @click="number.a++">a加一</button><br/>
+        <span>{{number.b}}</span><br/>
+        <button type="button" @click="number.b++">b加一</button>
+    </div>
+    <script type="text/javascript">
+        new Vue({
+            el:'#root',
+            data(){
+                return{
+                    isHot:true,
+                    number:{
+                        a:1,
+                        b:2
+                    }
+                }
+            },computed:{
+                weather(){
+                    return this.isHot ? '炎热':'凉爽'
+                }
+            },methods: {
+                change(){
+                    const beforeWeather=this.isHot
+                    this.isHot=!beforeWeather;
+                }
+            },watch:{
+                weather:{
+                    handler(newValue,oldValue){
+                        console.log("现在天气："+newValue,"之前天气："+oldValue)
+                    }
+                },
+                number:{
+                    deep:true,
+                    handler(){
+                        console.log("number发生改变")
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

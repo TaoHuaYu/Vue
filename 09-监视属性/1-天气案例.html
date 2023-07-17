@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <span>今天天气{{weather}}</span><br/>
+        <button type="button" @click="change()">切换</button>
+
+    </div>
+    <script type="text/javascript">
+        new Vue({
+            el:"#root",
+            data(){
+                return{
+                    isHot:true,
+                    weather:'炎热'
+                }
+            },methods:{
+                change(){
+                    const weather1=this.weather;
+                    if(this.isHot){
+                        this.weather='寒冷';
+                        console.log("现在天气"+this.weather+","+"原先天气"+weather1)
+                        this.isHot=false;
+                    }else{
+                        this.weather='炎热';
+                        console.log("现在天气"+this.weather+","+"原先天气"+weather1)
+                        this.isHot=true;
+                    }
+                    
+                }
+            }
+        })
+    </script>
+</body>
+</html>
