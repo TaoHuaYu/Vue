@@ -5,15 +5,68 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="../js/vue.js"></script>
 </head>
+<!--
+    v-f0r指令
+        1.用于展示列表数据
+        2.语法：v-for="(item,index) in xxx" :key="yyy"
+        3.可遍历：数组，对象，字符串，指定次数
+-->
 <body>
     <div id="root">
+        <h1>遍历集合</h1>
         <ul>
-            <li>
-                
+            <li v-for="(p,index) in persons" :key="p.id">
+                {{p.name}}-{{p.age}}
+            </li>
+        </ul>
+        <h1>遍历对象</h1>
+        <ul>
+            <li v-for="(value,key) in car" :key="key">
+                {{key}}-{{value}}
+            </li>
+        </ul>
+        <h1>遍历字符串</h1>
+        <ul>
+            <li v-for="(value,key) in str" :key="key">
+                {{value}}-{{key}}
+            </li>
+        </ul>
+        <h1>遍历指定次数</h1>
+        <ul>
+            <li v-for="(number,key) in 5" :key="key">
+                {{key}}-{{number}}
             </li>
         </ul>
 
     </div>
+    <script type="text/javascript">
+        new Vue({
+            el:"#root",
+            data(){
+                return{
+                    persons:[
+                        {
+                            id:1,
+                            name:'111',
+                            age:20
+                        },
+                        {
+                            id:2,
+                            name:'222',
+                            age:22
+                        }
+                    ],
+                    car:{
+                        name:"ct5",
+                        price:"30w",
+                        color:"black"
+                    },
+                    str:'taohuayu'
+                }
+            }
+        })
+    </script>
 </body>
 </html>
