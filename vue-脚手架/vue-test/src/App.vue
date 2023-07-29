@@ -11,8 +11,6 @@
         <my-footer
           :todos="todos"
           :delItem1="delItem1"
-          :updateDone1="updateDone1"
-          :updateDone2="updateDone2"
         ></my-footer>
       </div>
     </div>
@@ -29,11 +27,7 @@ export default {
   name: "App",
   data() {
     return {
-      todos: [
-        { id: "001", title: "吃", done: true },
-        { id: "002", title: "喝", done: false },
-        { id: "003", title: "乐", done: true },
-      ],
+      todos: JSON.parse(localStorage.getItem('todos')) || [],
     };
   },
   methods: {
@@ -61,6 +55,13 @@ export default {
       this.todos.forEach((todo) => (todo.done = e));
     },
   },
+  watch:{
+    todos:{
+      handler(value){
+        localStorage.setItem('todos',JSON.stringify(value));
+      }
+    }
+  }
 };
 </script>
 
