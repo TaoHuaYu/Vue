@@ -22,9 +22,14 @@ export default {
     };
   },
   mounted() {
-    pubsub.subscribe("getName", (msgName, data) => (this.studentName = data));
+    this.pid = pubsub.subscribe(
+      "getName",
+      (msgName, data) => (this.studentName = data)
+    );
   },
-  beforeDestroy() {},
+  beforeDestroy() {
+    pubsub.unsubscribe(this.pid);
+  },
 };
 </script>
   
