@@ -1,7 +1,7 @@
 <template>
   <div class="category">
     <h3>{{ title }}分类</h3>
-   <slot></slot>
+   <slot>我是一个默认值，当使用者没有传递结构的时候，默认展示</slot>
 
   </div>
 </template>
