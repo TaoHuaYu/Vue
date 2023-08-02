@@ -1,6 +1,8 @@
 <template>
    <div class="col-xs-offset-2 col-xs-8">
         <div class="page-header"><h2>Vue Router Demo</h2></div>
+        <button type="button" @click="back()">back</button>
+        <button type="button" @click="forward()">forback</button>
     </div>
 </template>
 
@@ -13,6 +15,14 @@ export default {
             
         }
     },
+    methods:{
+        back(){
+            this.$router.back();
+        },
+        forward(){
+            this.$router.forward();
+        }
+    }
 
 }
 </script>
