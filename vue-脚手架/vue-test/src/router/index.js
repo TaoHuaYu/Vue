@@ -27,18 +27,19 @@ const vueRouter=new VueRouter({
                     name:'Message',
                     component:Message,
                     meta:{isAuth:true,title:'消息'},
-                    beforeEnter:(to,form,next)=>{
-                        if(to.meta.isAuth){
-                            if(localStorage.getItem("name")=='taohuayu'){
-                                next();
-                            }else{
-                                alert("权限不足");
-                            }
+                    //独享路由守卫
+                    // beforeEnter:(to,form,next)=>{
+                    //     if(to.meta.isAuth){
+                    //         if(localStorage.getItem("name")=='taohuayu'){
+                    //             next();
+                    //         }else{
+                    //             alert("权限不足");
+                    //         }
 
-                        }else{
-                            next();
-                        }
-                    },
+                    //     }else{
+                    //         next();
+                    //     }
+                    // },
                     children:[
                         {
                             path:'detail/:id/:title',
@@ -76,10 +77,11 @@ const vueRouter=new VueRouter({
 //     }
 
 // });
-//全局后置路由守卫 -->初始化的时候、每次路由切换之前会被调用
-vueRouter.afterEach((to)=>{
-    document.title=to.meta.title || "taohuayu" //修改页面的title
 
-})
+//全局后置路由守卫 -->初始化的时候、每次路由切换之前会被调用
+// vueRouter.afterEach((to)=>{
+//     document.title=to.meta.title || "taohuayu" //修改页面的title
+
+// })
 
 export default vueRouter;

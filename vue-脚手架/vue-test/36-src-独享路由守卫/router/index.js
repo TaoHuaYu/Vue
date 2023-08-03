@@ -27,6 +27,7 @@ const vueRouter=new VueRouter({
                     name:'Message',
                     component:Message,
                     meta:{isAuth:true,title:'消息'},
+                    //独享路由守卫
                     beforeEnter:(to,form,next)=>{
                         if(to.meta.isAuth){
                             if(localStorage.getItem("name")=='taohuayu'){
