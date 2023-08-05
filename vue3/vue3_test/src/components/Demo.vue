@@ -1,38 +1,36 @@
-<template>
-    <h1>个人信息</h1>
-    姓：<input type="text" v-model="person.firstName"/><br/>
-    名：<input type="text" v-model="person.lastName"/><br/>
-    全名<h2>{{ person.fullName }}</h2><br/>
-    计算全名:<input type="text" v-model="person.fullName"/>
+ <template>
+   <h1>{{ sum }}</h1>
+   <button type="button" @click="sum++">++</button>
+   <h1>{{ msg }}</h1>
+   <button type="button" @click="update()">更新信息</button>
   </template>
 
   <script>
-import { computed, reactive } from 'vue'
+  import { ref, watch } from 'vue'
   export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name:'Demo',
   setup(){
-    const person=reactive({
-        firstName:'tao',
-        lastName:'huayu'
-    })
-    //简写形式，只读，不可以修改
-    // person.fullName=computed(()=>{
-    //   return person.firstName+'-'+person.lastName;
-    // })
-      //完整写法，可以读同时也可以写
-    person.fullName=computed({
-      get(){
-        return person.firstName+'-'+person.lastName;
-      },
-      set(value){
-        const nameArry=value.split('-');
-        person.firstName=nameArry[0];
-        person.lastName=nameArry[1];
-      }
-    })
+    const sum=ref(0)
+    const msg=ref('hello')
+    function update(){
+      msg.value +="!"
+    }
+    //第一种形式，监视ref所定义的一个响应式数据
+    // watch(sum,(newValue,oldValue)=>{
+    //   console.log('sum变了:'+newValue,oldValue);
+    // },{immediate:true})
+
+    //第二种形式，监视ref所定义的多个响应式数据
+    watch([sum,msg],(newValue,oldValue)=>{
+      console.log('msg和sum发生了改变:',newValue,oldValue);
+    },{immediate:true})
+       
     return{
-        person
+      sum,
+      msg,
+      update
+    
     }
   }
 }
